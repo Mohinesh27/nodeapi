@@ -1,0 +1,23 @@
+{
+    "database": {
+        "mysql": {
+            "endpoint": "",
+            "port": "",
+            "username": "",
+            "password": ""
+        },
+        "mongodb": {
+            "endpoint": "",
+            "port": "",
+            "username": "",
+            "password": ""
+        }
+    },
+    "aws": {
+        "s3": {},
+        "sns": {}
+    },
+    "encryption":{
+        "saltrounds":10
+    }
+}
