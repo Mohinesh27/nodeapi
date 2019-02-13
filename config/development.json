@@ -2,10 +2,10 @@
     "database": {
         "mysql": {
             "endpoint1": "kupdev.ccjucucpvfwh.ap-south-1.rds.amazonaws.com",
-            "endpoint":"kupdevdb.cgfzgja0jdij.us-east-1.rds.amazonaws.com",
+            "endpoint":"localhost",
             "port": "3306",
-            "username": "ritesh",
-            "password": "riteshaws123#",
+            "username": "root",
+            "password": "root",
             "username1": "kupadmin",
             "password1": "kuproot12345",
             "database": "kupDB",
@@ -17,10 +17,11 @@
             }
         },
         "mongodb": {
-            "endpoint": "",
-            "port": "",
+            "endpoint": "mongodb://localhost/",
+            "port": "27017",
             "username": "",
-            "password": ""
+            "password": "",
+            "databasename":"kupdb"
         }
     },
     "aws": {
@@ -30,5 +31,6 @@
 
     "encryption":{
         "saltrounds":10
-    }
+    },
+    "secret":"onlinetestportal"
 }

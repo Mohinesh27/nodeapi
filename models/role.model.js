@@ -1,33 +1,37 @@
-let AppConfig=require('../config/config');
 
-let schema= AppConfig.getDB();
+var mongoose = require('mongoose');
 
-let Role=schema.db.define('roles',{
-    id:{
-        type:schema.Sequelize.BIGINT,
-        field:'id',
-        primaryKey:true,
-        autoIncrement:true
-    },
+//setup schema
+var RoleSchema=mongoose.Schema({
     name:{
-        type:schema.Sequelize.BIGINT,
-        field:'name',
+        type:String,
         unique:true
     },
     isActive:{
-        type:schema.Sequelize.BOOLEAN,
-        field:'isActive',
-        defaultValue:true
+        type:Boolean,
+        default:true
     },
     createdBy:{
-        type:schema.Sequelize.BIGINT,
-        field:'createdBy'
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
     },
     modifiedBy:{
-        type:schema.Sequelize.BIGINT,
-        field:'modifiedBy'
-    }
+        type:mongoose.Schema.Types.ObjectId,
+    },
+    createdon:{
+        type:Date,
+        default:Date.now
+    },
+    modifiedon:{
+        type:Date
+    },
+    users:[{type:mongoose.Schema.Types.ObjectId,ref:'User'}]
     
 });
 
-module.exports=Role;
+// Export Contact model
+var Role = module.exports = mongoose.model('Role', RoleSchema);
+
+module.exports.get = function (callback, limit) {
+    Role.find(callback).limit(limit);
+}

@@ -1,23 +1,36 @@
 {
     "database": {
         "mysql": {
-            "endpoint": "",
-            "port": "",
-            "username": "",
-            "password": ""
+            "endpoint1": "kupdev.ccjucucpvfwh.ap-south-1.rds.amazonaws.com",
+            "endpoint":"localhost",
+            "port": "3306",
+            "username": "root",
+            "password": "root",
+            "username1": "kupadmin",
+            "password1": "kuproot12345",
+            "database": "kupDB",
+            "dialect": "mysql",
+            "poolConfig": {
+                "max": 5,
+                "min": 0,
+                "idle": 100000
+            }
         },
         "mongodb": {
-            "endpoint": "",
-            "port": "",
+            "endpoint": "mongodb://localhost/",
+            "port": "27017",
             "username": "",
-            "password": ""
+            "password": "",
+            "databasename":"kupdb"
         }
     },
     "aws": {
         "s3": {},
         "sns": {}
     },
+
     "encryption":{
         "saltrounds":10
-    }
+    },
+    "secret":"onlinetestportal"
 }

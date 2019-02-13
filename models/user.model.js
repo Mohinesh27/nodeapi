@@ -1,66 +1,73 @@
-let AppConfig=require('../config/config');
 
-let schema= AppConfig.getDB();
+var mongoose = require('mongoose');
 
-let User=schema.db.define('users',{
-    id:{
-        type:schema.Sequelize.BIGINT,
-        field:'id',
-        primaryKey:true,
-        autoIncrement:true
-    },
+//setup schema
+var UserSchema=mongoose.Schema({
     userName:{
-        type:schema.Sequelize.STRING,
-        field:'userName',
-        unique:true
+        type:String,
+        required:true,
+        unique: true
     },
     firstName:{
-        type:schema.Sequelize.STRING,
-        field:'firstName',
-        allowNull:false
+        type:String,
+        required:true
     },
     lastName:{
-        type:schema.Sequelize.STRING,
-        field:'lastName',
-        allowNull:false
+        type:String,
+        required:true
     },
     email:{
-        type:schema.Sequelize.STRING,
-        field:'email',
-        unique:true,
+        type:String,
+        unique: true,
+        required:true,
         validate:{
-            isEmail:true
+            validator:function(v){
+                return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+            },
+            message: props => `${props.value} is not valid email!`
         }
     },
     mobile:{
-        type:schema.Sequelize.STRING,
-        field:'mobile',
+        type:String,
         unique:true,
-        validate:{
-            len:[10],
-            isNumeric:true
-        }
+        required:true,
+        validate: {
+            validator: function(v) {
+              return /\d{10}/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+          }
     },
     isActive:{
-        type:schema.Sequelize.BOOLEAN,
+        type:Boolean,
         field:'isActive',
         defaultValue:true
     },
     password:{
-        type:schema.Sequelize.STRING,
-        field:'password'
+        type:String,
+        required:true
     },
     createdBy:{
-        type:schema.Sequelize.BIGINT,
-        field:'createdBy'
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
     },
     modifiedBy:{
-        type:schema.Sequelize.BIGINT,
-        field:'modifiedBy'
-    }
-    
+        type:mongoose.Schema.Types.ObjectId
+    },
+    createdon:{
+        type:Date,
+        default:Date.now
+    },
+    modifiedon:{
+        type:Date
+    },
+    roles:[{type:mongoose.Schema.Types.ObjectId,ref:'Role'}]
+
 });
 
+// Export Contact model
+var User = module.exports = mongoose.model('User', UserSchema);
 
-
-module.exports=User;
+module.exports.get = function (callback, limit) {
+    User.find(callback).limit(limit);
+}
